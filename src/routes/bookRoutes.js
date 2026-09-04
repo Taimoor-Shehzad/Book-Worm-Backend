@@ -60,7 +60,7 @@ router.get('/',protectRoute,async (req,res)=>{
 
 router.get('/user',protectRoute,async (req,res)=>{
   try {
-    const books=await Book.findOne({user: req.user._id}).sort({createdAt: -1})
+    const books=await Book.find({user: req.user._id}).sort({createdAt: -1})
     res.json(books)
   } catch (error) {
     console.log('Error getting user books',error)
