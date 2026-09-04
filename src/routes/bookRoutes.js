@@ -38,7 +38,7 @@ router.get('/',protectRoute,async (req,res)=>{
     const limit=req.query.limit || 5;
     const skip=(page - 1) * limit;
 
-    const book=await Book.find()
+    const books=await Book.find()
     .sort({createdAt: -1})
     .skip(skip)
     .limit(limit)
@@ -47,13 +47,13 @@ router.get('/',protectRoute,async (req,res)=>{
     const totalBooks = await Book.countDocuments();
 
     res.send({
-      totalBooks,
+      books,
       currentPage: page,
       totalBooks,
       totalPages: Math.ceil(totalBooks/limit)
     })
   } catch (error) {
-    console.log("Error fetching books",error)
+    console.log("Error fetching all books",error)
     res.status(500).json({message: "Internal server error"})    
   }
 })
